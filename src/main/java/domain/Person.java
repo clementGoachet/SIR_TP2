@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -20,7 +21,7 @@ public class Person {
 
 	private String email;
 
-	private List<Home> homes = new ArrayList<Home>();
+	private List<Home> homes;
 
 //	private List<Person> friends = new ArrayList<Person>();
 
