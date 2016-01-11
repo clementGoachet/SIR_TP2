@@ -20,10 +20,12 @@ public class Person {
 	private String firstName;
 
 	private String email;
+	
+	private Person friendOf;
 
-	private List<Home> homes;
+	private List<Home> homes = new ArrayList<Home>();
 
-//	private List<Person> friends = new ArrayList<Person>();
+	private List<Person> friends = new ArrayList<Person>();
 
 
 	public Person() {
@@ -38,12 +40,13 @@ public class Person {
 		this.email = email;
 	}
 
-	public Person(String name, String firstName, String email, List<Home> homes) {
+	public Person(String name, String firstName, String email, List<Home> homes, List<Person> friends, Person friendOf) {
 		this.name = name;
 		this.firstName = firstName;
 		this.email = email;
 		this.homes = homes;
-//		this.friends = friends;
+		this.friends = friends;
+		this.friendOf = friendOf;
 	}
 
 
@@ -81,19 +84,30 @@ public class Person {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
 
-//	@OneToMany(mappedBy = "person", cascade = CascadeType.PERSIST)
-//	public List<Person> getFriends() {
-//		return friends;
-//	}
-//
-//	public void setFriends(List<Person> friends) {
-//		this.friends = friends;
-//	}
-//	
-//	public void addFriend(Person friend){
-//		this.friends.add(friend);
-//	}
+	@ManyToOne
+	public Person getFriendOf() {
+		return friendOf;
+	}
+
+	public void setFriendOf(Person friendOf) {
+		this.friendOf = friendOf;
+	}
+
+	@OneToMany(mappedBy = "friendOf", cascade = CascadeType.PERSIST)
+	public List<Person> getFriends() {
+		return friends;
+	}
+
+	public void setFriends(List<Person> friends) {
+		this.friends = friends;
+	}
+	
+	public void addFriend(Person friend){
+		friend.setFriendOf(this);
+		this.friends.add(friend);
+	}
 
 	@OneToMany(mappedBy = "person", cascade = CascadeType.PERSIST)
 	public List<Home> getHomes() {
@@ -105,6 +119,7 @@ public class Person {
 	}
 	
 	public void addHome(Home home){
+		home.setPerson(this);
 		this.homes.add(home);
 	}
 

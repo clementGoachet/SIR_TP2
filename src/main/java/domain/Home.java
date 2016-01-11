@@ -21,14 +21,13 @@ public class Home {
     
     private int size;
     
-    private int nbRoom;
-    
+    private int nbRoom;    
 
     private Person person;
     
-//    private List<Device> devices = new ArrayList<Device>();
-//
-//    private List<Device> heaters = new ArrayList<Device>();
+    private List<Device> devices = new ArrayList<Device>();
+
+    private List<Device> heaters = new ArrayList<Device>();
 
     public Home() {
         this.name = "scoate";
@@ -47,14 +46,14 @@ public class Home {
 		this.nbRoom = nbRoom;
 	}
 
-//	public Home(String name, int size, int nbRoom, List<Device> devices, List<Device> heaters) {
-//		super();
-//		this.name = name;
-//		this.size = size;
-//		this.nbRoom = nbRoom;
-//		this.devices = devices;
-//		this.heaters = heaters;
-//	}
+	public Home(String name, int size, int nbRoom, List<Device> devices, List<Device> heaters) {
+		super();
+		this.name = name;
+		this.size = size;
+		this.nbRoom = nbRoom;
+		this.devices = devices;
+		this.heaters = heaters;
+	}
 
     @Id
     @GeneratedValue
@@ -86,8 +85,7 @@ public class Home {
 		return nbRoom;
 	}
 
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="PERSON_ID")
+	@ManyToOne
 	public Person getPerson() {
 		return person;
 	}
@@ -99,22 +97,35 @@ public class Home {
 	public void setNbRoom(int nbRoom) {
 		this.nbRoom = nbRoom;
 	}
+	
+	@OneToMany(mappedBy = "home", cascade = CascadeType.PERSIST)
+	public List<Device> getDevices() {
+		return devices;
+	}
 
-//	public List<Device> getDevices() {
-//		return devices;
-//	}
-//
-//	public void setDevices(List<Device> devices) {
-//		this.devices = devices;
-//	}
-//
-//	public List<Device> getHeaters() {
-//		return heaters;
-//	}
-//
-//	public void setHeaters(List<Device> heaters) {
-//		this.heaters = heaters;
-//	}
+	public void setDevices(List<Device> devices) {
+		this.devices = devices;
+	}
+	
+	public void addDevice(Device device){
+		device.setHome(this);
+		this.devices.add(device);
+	}
+
+	@OneToMany(mappedBy = "home", cascade = CascadeType.PERSIST)
+	public List<Device> getHeaters() {
+		return heaters;
+	}
+
+	public void setHeaters(List<Device> heaters) {
+		this.heaters = heaters;
+	}
+	
+	public void addheater(Device heater){
+		heater.setHome(this);
+		this.heaters.add(heater);
+	}
+
 
 
 }

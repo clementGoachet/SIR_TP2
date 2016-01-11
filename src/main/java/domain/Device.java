@@ -3,6 +3,7 @@ package domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Device {
@@ -12,6 +13,24 @@ public class Device {
 	private String name;
 	
 	private int conso;
+	
+	private Home home;
+	
+	
+	public Device() {
+	}
+	
+	public Device(String name, int conso){
+		this.name = name;
+		this.conso = conso;
+	}
+
+	public Device(String name, int conso, Home home) {
+		this.name = name;
+		this.conso = conso;
+		this.home = home;
+	}
+	
 	
     @Id
     @GeneratedValue
@@ -38,16 +57,13 @@ public class Device {
 	public void setConso(int conso) {
 		this.conso = conso;
 	}
-
 	
-	
-	public Device() {
+	@ManyToOne
+	public Home getHome() {
+		return home;
 	}
 
-	public Device(String name, int conso) {
-		this.name = name;
-		this.conso = conso;
-	}
-	
-	
+	public void setHome(Home home) {
+		this.home = home;
+	}	
 }
