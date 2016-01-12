@@ -59,6 +59,7 @@ public class JpaTest {
 			p.addFriend(f1);
 			f1.addFriend(p);
 			manager.persist(p);
+			// test commit
 
 
 		} catch (Exception e) {
