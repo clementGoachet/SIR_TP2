@@ -21,12 +21,12 @@ Une fois le serveur de base de donnée lancé, vous pouvez lancez le programme j
   On lui définit certains attributs avec ces assesseurs.
   On peut créer des clés étrangeres en mappant deux objets avec le code suivant.
   
-  @OneToMany(mappedBy = "home", cascade = CascadeType.PERSIST)
+  	@OneToMany(mappedBy = "home", cascade = CascadeType.PERSIST)
 	public List<Device> getHeaters() {
 		return heaters;
 	}
 	
-	Sur cette attribut on définit une liste d'objets. Ici pour "home" on définit plusieurs "heaters".
+Sur cette attribut on définit une liste d'objets. Ici pour "home" on définit plusieurs "heaters".
 	
 ## Servlet
 
